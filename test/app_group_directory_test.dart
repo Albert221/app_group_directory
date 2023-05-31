@@ -9,14 +9,18 @@ void main() {
     () {
       TestWidgetsFlutterBinding.ensureInitialized();
 
-      channel.setMockMethodCallHandler(
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+          .setMockMethodCallHandler(
+        channel,
         (_) async => '/private/var/mobile/Containers/Shared/'
             'AppGroup/5CFF96C4-8B73-449F-99A3-F871D21862BD',
       );
     },
   );
 
-  tearDown(() => channel.setMockMethodCallHandler(null));
+  tearDown(() => TestDefaultBinaryMessengerBinding
+      .instance.defaultBinaryMessenger
+      .setMockMethodCallHandler(channel, null));
 
   test('getAppGroupDirectory', () async {
     final dir =

@@ -1,4 +1,4 @@
-package me.wolszon.app_group_directory_example;
+package me.wolszon.app_groups_directory_example;
 
 import io.flutter.embedding.android.FlutterActivity;
 

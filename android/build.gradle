@@ -23,7 +23,7 @@ apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 28
-
+    namespace 'me.wolszon.app_group_directory'
     defaultConfig {
         minSdkVersion 16
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"

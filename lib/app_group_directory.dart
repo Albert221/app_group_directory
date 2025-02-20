@@ -4,8 +4,7 @@ import 'dart:io';
 import 'package:flutter/services.dart';
 
 class AppGroupDirectory {
-  static const _channel =
-      MethodChannel('me.wolszon.app_group_directory/channel');
+  static const MethodChannel _channel = MethodChannel('me.wolszon.app_group_directory/channel');
 
   /// Returns the container directory associated with the specified security
   /// application group identifier [groupId].
@@ -16,9 +15,8 @@ class AppGroupDirectory {
   /// Returns method not implemented on other platforms.
   ///
   /// See https://developer.apple.com/documentation/foundation/nsfilemanager/1412643-containerurlforsecurityapplicati
-  static Future<Directory?> getAppGroupDirectory(String groupId) async {
-    final path =
-        await _channel.invokeMethod<String>('getAppGroupDirectory', groupId);
+  Future<Directory?> getAppGroupDirectory(String groupId) async {
+    final path = await _channel.invokeMethod<String>('getAppGroupDirectory', groupId);
 
     if (path == null) {
       return null;

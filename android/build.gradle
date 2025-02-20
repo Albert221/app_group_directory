@@ -7,8 +7,9 @@ buildscript {
         jcenter()
     }
 
+    ext.kotlin_version = '1.8.0'
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.2.1'
+        classpath 'com.android.tools.build:gradle:7.2.2'
     }
 }
 
@@ -22,7 +23,8 @@ rootProject.allprojects {
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 28
+    namespace "me.wolszon.app_group_directory"
+    compileSdkVersion 35
 
     defaultConfig {
         minSdkVersion 16

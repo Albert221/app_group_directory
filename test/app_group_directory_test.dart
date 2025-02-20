@@ -4,23 +4,29 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   const channel = MethodChannel('me.wolszon.app_group_directory/channel');
+  final defaultBinaryMessenger = TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger;
 
-  setUp(
-    () {
-      TestWidgetsFlutterBinding.ensureInitialized();
+  setUp(() {
+    TestWidgetsFlutterBinding.ensureInitialized();
 
-      channel.setMockMethodCallHandler(
-        (_) async => '/private/var/mobile/Containers/Shared/'
-            'AppGroup/5CFF96C4-8B73-449F-99A3-F871D21862BD',
-      );
-    },
-  );
+    defaultBinaryMessenger.setMockMethodCallHandler(
+      channel,
+      (methodCall) async {
+        if (methodCall.method == 'getAppGroupDirectory') {
+          return '/private/var/mobile/Containers/Shared/'
+              'AppGroup/5CFF96C4-8B73-449F-99A3-F871D21862BD';
+        }
+        return null;
+      },
+    );
+  });
 
-  tearDown(() => channel.setMockMethodCallHandler(null));
+  tearDown(() {
+    defaultBinaryMessenger.setMockMethodCallHandler(channel, null);
+  });
 
   test('getAppGroupDirectory', () async {
-    final dir =
-        await AppGroupDirectory.getAppGroupDirectory('com.example.app1');
+    final dir = await AppGroupDirectory().getAppGroupDirectory('com.example.app1');
 
     expect(
       dir?.path,
